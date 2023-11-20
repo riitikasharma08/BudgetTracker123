@@ -8,7 +8,10 @@ import androidx.room.RoomDatabase;
 @Database(entities ={ExpenseTable.class},version = 1)
 
 public abstract class ExpenseDatabase extends RoomDatabase {
-    public abstract ExpenseDao getDao();
+    public static ExpenseDao getDao() {
+        return null;
+    }
+
     public  static volatile ExpenseDatabase INSTANCE;
 
     public static ExpenseDatabase getInstance(Context context){

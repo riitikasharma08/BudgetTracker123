@@ -10,18 +10,29 @@ public class ExpenseTable {
     private int id;
 
     private String paymentType;
-    private long amount;
-    private String description;
+    public String description;
     private boolean isIncome;
     public ExpenseTable() {
     }
     public ExpenseTable(int id,String paymentType,long amount,String description,boolean isIncome){
         this.id=id;
         this.paymentType=paymentType;
-        this.amount = amount;
         this.description=description;
         this.isIncome = isIncome;
     }
+
+    public static int getTitle() {
+        return 0;
+    }
+
+    public static long getAmount() {
+        return 0;
+    }
+
+    public static int getDescription() {
+        return 0;
+    }
+
     public int getId(){
         return id;
     }
@@ -36,5 +47,17 @@ public class ExpenseTable {
     }
 
     public void setAmount(long parseLong) {
+    }
+
+    public String getPaymentType() {
+        return null;
+    }
+
+    public boolean isIncome() {
+        return false;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

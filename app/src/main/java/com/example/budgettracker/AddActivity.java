@@ -4,6 +4,7 @@ package com.example.budgettracker;
 
         import android.os.Bundle;
         import android.view.View;
+        import android.widget.Toast;
 
         import com.example.budgettracker.databinding.ActivityAddBinding;
 
@@ -15,6 +16,26 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        boolean update = getIntent().getBooleanExtra("update",false);
+        Toast.makeText(this,""+update, Toast.LENGTH_SHORT).show();
+        String desc = getIntent().getStringExtra("desc");
+        long  amount = getIntent().getLongExtra("amount",-1);
+        int id= getIntent().getIntExtra("id",-1);
+        String ptype= getIntent().getStringExtra("paymenttype");
+        boolean isIncome = getIntent().getBooleanExtra("isincome",false);
+
+        if(update){
+            binding.addText.setText("Update");
+            binding.amount.setText(amount+"");
+            binding.paymentType.setText(ptype);
+            binding.description.setText(desc);
+            if(isIncome){
+                binding.incomeRadio.setChecked(true);
+            }else{
+                binding.expenseRadio.setChecked(true);
+            }
+        }
+        
 
         binding.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,8 +52,15 @@ public class AddActivity extends AppCompatActivity {
 
                 ExpenseDatabase expenseDatabase = ExpenseDatabase.getInstance(view.getContext());
                 ExpenseDao expenseDao = expenseDatabase.getDao();
+                 if(!update){
 
-                expenseDao.insertExpense(expenseTable);
+                     expenseDao.insertExpense(expenseTable);
+                 }else{
+                     expenseTable.setId(id);
+                     expenseDao.updateExpense(expenseTable);
+                 }
+
+                finish();
             }
         });
     }
